@@ -21,5 +21,12 @@
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
         android:layout_gravity="center_horizontal"
-        android:fillViewport="false" />
+        android:fillViewport="false" >
+        <fragment
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"/>
+        </ScrollView>
+
 </LinearLayout>
