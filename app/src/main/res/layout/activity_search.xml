@@ -3,11 +3,29 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:layout_gravity="center_horizontal" />
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter location"
+            android:id="@+id/locationBtn" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GPS Location"
+            android:id="@+id/gpsBtn" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,17 +34,31 @@
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal" />
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <fragment
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
         android:layout_gravity="center_horizontal"
         android:fillViewport="false" >
-        <fragment
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:id="@+id/map"
+        <ListView
             android:layout_width="match_parent"
-            android:layout_height="600dp"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/listView">
+
+        </ListView>
+
         </ScrollView>
+
 
 </LinearLayout>

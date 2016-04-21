@@ -9,10 +9,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -35,6 +37,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,6 +77,18 @@ public class SearchActivity extends FragmentActivity implements
             map.getUiSettings().setZoomGesturesEnabled(true);
             map.getUiSettings().setRotateGesturesEnabled(true);
             getCurrentLocation();
+
+            Property prop1=new Property("125 W 21 Street, New York, New York", ResourcesCompat.getDrawable(getResources(), R.drawable.nyny_125w21st, null), 6700, 300000);
+
+            ArrayList<Property> properties = new ArrayList<Property>();
+
+            properties.add(prop1);
+
+            CustomListViewAdapter adapter = new CustomListViewAdapter(this,R.layout.list_layout1,properties);
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
         }catch (Exception e){
             textView2.setText(e.getMessage());
         }
