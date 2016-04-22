@@ -44,14 +44,14 @@ public class CustomListViewAdapter extends ArrayAdapter<Property> {
                     null); // inflate the layout programmatically to create in memory model
             holder = new ViewHolder();
             holder.pic = (ImageView) convertView.findViewById(R.id.imageView);
-            holder.address = (TextView) convertView.findViewById(R.id.textView);
+            holder.address = (TextView) convertView.findViewById(R.id.textView3);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag(); // when view is getting reused
         }
 
 
-        holder.address.setText(property.getAddress()+ "\n"+property.getRent().toString()+"/"+property.getPayPeriod()+"\n"+property.getBeds()+"br"+property.getBaths()+"ba");
+        holder.address.setText(property.getAddress()+property.getRent().toString()+property.getPayPeriod()+property.getBeds()+"br"+property.getBaths()+"ba");
         holder.pic.setImageDrawable(property.getPic());
 
         return convertView;

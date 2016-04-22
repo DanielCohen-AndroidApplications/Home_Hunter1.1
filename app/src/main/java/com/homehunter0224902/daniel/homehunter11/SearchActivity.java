@@ -66,7 +66,8 @@ public class SearchActivity extends FragmentActivity implements
             name=getIntent().getStringExtra("name");
             email=getIntent().getStringExtra("email");
             salaryString=getIntent().getStringExtra("salary");
-            textView2.setText(name+"\n"+email+"\n"+salaryString);
+//            textView2.setText(name+"\n"+email+"\n"+salaryString);
+
             fm = (SupportMapFragment)  getSupportFragmentManager().findFragmentById(R.id.map);
             map = fm.getMap();
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -78,12 +79,14 @@ public class SearchActivity extends FragmentActivity implements
             map.getUiSettings().setRotateGesturesEnabled(true);
             getCurrentLocation();
 
-            Property prop1=new Property("125 W 21 Street, New York, New York", ResourcesCompat.getDrawable(getResources(), R.drawable.nyny_125w21st, null), 6700, 300000);
-
+            Property prop1=new Property("125 W 21 Street, New York, New York", ResourcesCompat.getDrawable(getResources(), R.drawable.nyny_125w21st, null), 6700, "mo", 300000);
+            prop1.setBeds(2.0);
+            prop1.setBaths(2.0);
             ArrayList<Property> properties = new ArrayList<Property>();
 
             properties.add(prop1);
 
+            textView2.setText(properties.size()+" properties available near "+location);
             CustomListViewAdapter adapter = new CustomListViewAdapter(this,R.layout.list_layout1,properties);
             ListView listView = (ListView) findViewById(R.id.listView);
             listView.setAdapter(adapter);

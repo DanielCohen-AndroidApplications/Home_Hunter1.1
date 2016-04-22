@@ -13,10 +13,11 @@ public class Property {
     private Boolean pets, couples, smoking;
     private Drawable pic;
 
-    public Property(String address, Drawable pic, Integer rent, Integer minSalary) {
+    public Property(String address, Drawable pic, Integer rent, String payPeriod, Integer minSalary) {
         this.address = address;
         this.pic = pic;
         this.rent = rent;
+        this.payPeriod=payPeriod;
         this.minSalary=minSalary;
     }
 
