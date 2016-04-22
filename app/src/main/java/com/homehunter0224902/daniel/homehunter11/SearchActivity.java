@@ -84,14 +84,19 @@ public class SearchActivity extends FragmentActivity implements
             map.getUiSettings().setZoomGesturesEnabled(true);
             map.getUiSettings().setRotateGesturesEnabled(true);
             getCurrentLocation();
-
+            properties = new ArrayList<Property>();
             Property prop1=new Property("125 W 21 Street, New York, New York", ResourcesCompat.getDrawable(getResources(), R.drawable.nyny_125w21st, null), 6700, "mo", 300000);
             prop1.setBeds(2.0);
             prop1.setBaths(2.0);
-            properties = new ArrayList<Property>();
-
             properties.add(prop1);
-            numProperties=1;
+
+            Property prop2 = new Property("620 E 20th Street, New York, New York", ResourcesCompat.getDrawable(getResources(), R.drawable.nyny_620e20th, null), 3348, "mo", 200000);
+
+            prop2.setBeds(2.0);
+            prop2.setBaths(2.0);
+            properties.add(prop2);
+
+            numProperties=2;
             textView2.setText(numProperties+" properties available near "+strAdd);
             CustomListViewAdapter adapter = new CustomListViewAdapter(this,R.layout.list_layout1,properties);
             ListView listView = (ListView) findViewById(R.id.listView);
@@ -195,44 +200,47 @@ public class SearchActivity extends FragmentActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         for(cardinalnumProperties=0; cardinalnumProperties<numProperties; cardinalnumProperties++) {
+            location=properties.get(cardinalnumProperties).getAddress().replace(",", "").replace(" ", "+");
             new LatLongTask().execute();
-        }
             googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
-            @Override
-            public View getInfoWindow(Marker arg0) {
-                return null;
+                @Override
+                public View getInfoWindow(Marker arg0) {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker) {
+
+                    LinearLayout info = new LinearLayout(getApplication());
+                    info.setOrientation(LinearLayout.VERTICAL);
+
+                    TextView title = new TextView(getApplicationContext());
+                    title.setTextColor(Color.BLACK);
+                    title.setGravity(Gravity.CENTER);
+                    title.setTypeface(null, Typeface.BOLD);
+                    title.setText(marker.getTitle());
+
+                    TextView snippet = new TextView(getBaseContext());
+                    snippet.setTextColor(Color.GRAY);
+                    snippet.setText(marker.getSnippet());
+
+                    info.addView(title);
+                    info.addView(snippet);
+
+                    return info;
+                }
+            });
+            try {
+                Log.v("data_dan_JSON", getLatLong()+"");
+            }catch(Exception e){
+                Log.v("data_dan_JSON", "nil");
             }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-
-                LinearLayout info = new LinearLayout(getApplication());
-                info.setOrientation(LinearLayout.VERTICAL);
-
-                TextView title = new TextView(getApplicationContext());
-                title.setTextColor(Color.BLACK);
-                title.setGravity(Gravity.CENTER);
-                title.setTypeface(null, Typeface.BOLD);
-                title.setText(marker.getTitle());
-
-                TextView snippet = new TextView(getBaseContext());
-                snippet.setTextColor(Color.GRAY);
-                snippet.setText(marker.getSnippet());
-
-                info.addView(title);
-                info.addView(snippet);
-
-                return info;
-            }
-        });
-
-
-        try {
-            Log.v("data_dan_JSON", getLatLong()+"");
-        }catch(Exception e){
-            Log.v("data_dan_JSON", "nil");
         }
+
+
+
+
     }
     //Asynchronous task for retrieving latitude and longitude from Google Maps API based on a string representation of a location input by the user
     class LatLongTask extends AsyncTask<String,Integer,JSONObject> {
@@ -262,11 +270,12 @@ public class SearchActivity extends FragmentActivity implements
             map.addMarker(new MarkerOptions().position(pos).title(location.replace("+", " ")).snippet("snippet here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             if(cardinalnumProperties==0){
                 map.moveCamera(CameraUpdateFactory.newLatLng(pos));
+                map.getMaxZoomLevel();
             }
         }
         @Override
         protected void onPreExecute() {
-            location=properties.get(cardinalnumProperties).getAddress().replace(",", "").replace(" ", "+");
+
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
