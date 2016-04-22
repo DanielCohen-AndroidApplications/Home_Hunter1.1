@@ -267,7 +267,7 @@ public class SearchActivity extends FragmentActivity implements
         protected void onPostExecute(JSONObject result) {
 //            onMapReady(map);
             pos = new LatLng(latitude, longitude);
-            map.addMarker(new MarkerOptions().position(pos).title(location.replace("+", " ")).snippet("snippet here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            map.addMarker(new MarkerOptions().position(pos).title(getCompleteAddressString(latitude,longitude)).snippet("snippet here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             if(cardinalnumProperties==0){
                 map.moveCamera(CameraUpdateFactory.newLatLng(pos));
                 map.getMaxZoomLevel();
