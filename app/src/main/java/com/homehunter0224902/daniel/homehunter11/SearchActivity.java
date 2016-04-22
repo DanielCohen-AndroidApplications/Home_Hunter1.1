@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.res.ResourcesCompat;
@@ -34,6 +35,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URI;
@@ -57,6 +59,10 @@ public class SearchActivity extends FragmentActivity implements
     HttpResponse response;
     String responseString;
     JSONObject locationInfo;
+    ArrayList<Property> properties;
+    int numProperties;
+    int cardinalnumProperties;
+    LatLng pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,16 +88,16 @@ public class SearchActivity extends FragmentActivity implements
             Property prop1=new Property("125 W 21 Street, New York, New York", ResourcesCompat.getDrawable(getResources(), R.drawable.nyny_125w21st, null), 6700, "mo", 300000);
             prop1.setBeds(2.0);
             prop1.setBaths(2.0);
-            ArrayList<Property> properties = new ArrayList<Property>();
+            properties = new ArrayList<Property>();
 
             properties.add(prop1);
-
-            textView2.setText(properties.size()+" properties available near "+location);
+            numProperties=1;
+            textView2.setText(numProperties+" properties available near "+strAdd);
             CustomListViewAdapter adapter = new CustomListViewAdapter(this,R.layout.list_layout1,properties);
             ListView listView = (ListView) findViewById(R.id.listView);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-
+            onMapReady(map);
         }catch (Exception e){
             textView2.setText(e.getMessage());
         }
@@ -119,11 +125,11 @@ public class SearchActivity extends FragmentActivity implements
             }
         }
 
-        if(map != null){
-
-
-            onMapReady(map);
-        }
+//        if(map != null){
+//
+//
+//            onMapReady(map);
+//        }
         // The method returns a String[] with three elements: lat, lng, and strAdd (string representions of the latitude, longitude, and the address)
         return new String[]{latitude+"",longitude+"",strAdd};
     }
@@ -188,9 +194,10 @@ public class SearchActivity extends FragmentActivity implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng pos = new LatLng(latitude,longitude);
-        googleMap.addMarker(new MarkerOptions().position(pos).title(location.replace("+", " ")).snippet("snippet here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        for(cardinalnumProperties=0; cardinalnumProperties<numProperties; cardinalnumProperties++) {
+            new LatLongTask().execute();
+        }
+            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
             public View getInfoWindow(Marker arg0) {
@@ -220,11 +227,50 @@ public class SearchActivity extends FragmentActivity implements
             }
         });
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
+
         try {
             Log.v("data_dan_JSON", getLatLong()+"");
         }catch(Exception e){
             Log.v("data_dan_JSON", "nil");
+        }
+    }
+    //Asynchronous task for retrieving latitude and longitude from Google Maps API based on a string representation of a location input by the user
+    class LatLongTask extends AsyncTask<String,Integer,JSONObject> {
+        @Override
+        protected JSONObject doInBackground(String...params) {
+            JSONObject latLong=new JSONObject();
+            try {
+                latLong=getLatLong();
+                Log.v("JSON_result_dan",latLong.toString());
+                Log.v("JSON_result_dan2", latLong.optJSONArray("results").toString());
+                JSONArray resultJSONArray = latLong.optJSONArray("results");
+                JSONObject locationJSONObj = resultJSONArray.getJSONObject(0).optJSONObject("geometry").optJSONObject("location");
+                latitude=locationJSONObj.optDouble("lat");
+                longitude=locationJSONObj.optDouble("lng");
+                Log.v("_dan_loc",locationJSONObj.toString());
+                Log.v("_dan_lat",latitude+"");
+                Log.v("_dan_lng",longitude+"");
+            }catch(Exception e){
+                Log.v("_dan",e.getMessage());
+            }
+            return latLong;
+        }
+        @Override
+        protected void onPostExecute(JSONObject result) {
+//            onMapReady(map);
+            pos = new LatLng(latitude, longitude);
+            map.addMarker(new MarkerOptions().position(pos).title(location.replace("+", " ")).snippet("snippet here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            if(cardinalnumProperties==0){
+                map.moveCamera(CameraUpdateFactory.newLatLng(pos));
+            }
+        }
+        @Override
+        protected void onPreExecute() {
+            location=properties.get(cardinalnumProperties).getAddress().replace(",", "").replace(" ", "+");
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
         }
     }
 }
