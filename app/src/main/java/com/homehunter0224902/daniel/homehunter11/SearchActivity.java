@@ -63,6 +63,9 @@ public class SearchActivity extends FragmentActivity implements
     int numProperties;
     int cardinalnumProperties;
     LatLng pos;
+    Double myLat;
+    Double myLong;
+    Double myDistance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +121,9 @@ public class SearchActivity extends FragmentActivity implements
             l = lm.getLastKnownLocation(providers.get(i));
             if (l != null) {
                 latitude = l.getLatitude();
+                myLat=latitude;
                 longitude = l.getLongitude();
+                myLong=longitude;
                 usingGps=true;
                 strAdd = getCompleteAddressString(latitude, longitude);
                 location=strAdd.replace(",","").replace(" ", "+");
@@ -178,10 +183,10 @@ public class SearchActivity extends FragmentActivity implements
 
     }
 
-    public JSONObject getLatLong() {
+    public JSONObject getLatLong(String loc) {
 
         try {
-            URI uri = new URI("https://maps.googleapis.com/maps/api/geocode/json?address=" +location+"&key=AIzaSyAOolIF3JIZfb-1PyotIkVYIV0LXNFW7fs");
+            URI uri = new URI("https://maps.googleapis.com/maps/api/geocode/json?address=" +loc+"&key=AIzaSyAOolIF3JIZfb-1PyotIkVYIV0LXNFW7fs");
             HttpGet request = new HttpGet(uri);
             HttpClient client = new DefaultHttpClient();
             response = client.execute(request);
@@ -232,7 +237,7 @@ public class SearchActivity extends FragmentActivity implements
                 }
             });
             try {
-                Log.v("data_dan_JSON", getLatLong()+"");
+                Log.v("data_dan_JSON", getLatLong(location)+"");
             }catch(Exception e){
                 Log.v("data_dan_JSON", "nil");
             }
@@ -248,13 +253,14 @@ public class SearchActivity extends FragmentActivity implements
         protected JSONObject doInBackground(String...params) {
             JSONObject latLong=new JSONObject();
             try {
-                latLong=getLatLong();
+                latLong=getLatLong(location);
                 Log.v("JSON_result_dan",latLong.toString());
                 Log.v("JSON_result_dan2", latLong.optJSONArray("results").toString());
                 JSONArray resultJSONArray = latLong.optJSONArray("results");
                 JSONObject locationJSONObj = resultJSONArray.getJSONObject(0).optJSONObject("geometry").optJSONObject("location");
                 latitude=locationJSONObj.optDouble("lat");
                 longitude=locationJSONObj.optDouble("lng");
+                myDistance=distance(myLat,myLong,latitude,longitude);
                 Log.v("_dan_loc",locationJSONObj.toString());
                 Log.v("_dan_lat",latitude+"");
                 Log.v("_dan_lng",longitude+"");
@@ -267,7 +273,7 @@ public class SearchActivity extends FragmentActivity implements
         protected void onPostExecute(JSONObject result) {
 //            onMapReady(map);
             pos = new LatLng(latitude, longitude);
-            map.addMarker(new MarkerOptions().position(pos).title(getCompleteAddressString(latitude,longitude)).snippet("snippet here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            map.addMarker(new MarkerOptions().position(pos).title(getCompleteAddressString(latitude,longitude)).snippet(myDistance+"km from me").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             if(cardinalnumProperties==0){
                 map.moveCamera(CameraUpdateFactory.newLatLng(pos));
                 map.getMaxZoomLevel();
@@ -281,5 +287,25 @@ public class SearchActivity extends FragmentActivity implements
         protected void onProgressUpdate(Integer... values) {
 
         }
+    }
+    private static final int EARTH_RADIUS = 6371; // Approx Earth radius in KM
+
+    public static double distance(double startLat, double startLong,
+                                  double endLat, double endLong) {
+
+        double dLat  = Math.toRadians((endLat - startLat));
+        double dLong = Math.toRadians((endLong - startLong));
+
+        startLat = Math.toRadians(startLat);
+        endLat   = Math.toRadians(endLat);
+
+        double a = haversin(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversin(dLong);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return EARTH_RADIUS * c; // <-- d
+    }
+
+    public static double haversin(double val) {
+        return Math.pow(Math.sin(val / 2), 2);
     }
 }
