@@ -32,6 +32,9 @@
         <activity
             android:name=".SearchActivity">
         </activity>
+        <activity
+            android:name=".PropertyActivity">
+        </activity>
     </application>
 
 </manifest>

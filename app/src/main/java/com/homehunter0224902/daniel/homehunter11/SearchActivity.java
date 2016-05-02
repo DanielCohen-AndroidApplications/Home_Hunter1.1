@@ -2,6 +2,7 @@ package com.homehunter0224902.daniel.homehunter11;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -111,6 +113,13 @@ public class SearchActivity extends FragmentActivity implements
             ListView listView = (ListView) findViewById(R.id.listView);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent i = new Intent(SearchActivity.this,PropertyActivity.class);
+                    i.putExtra("propertyNumber",position);
+                    startActivity(i);
+                }
+            });
             onMapReady(map);
         }catch (Exception e){
 //            textView2.setText(e.getMessage());

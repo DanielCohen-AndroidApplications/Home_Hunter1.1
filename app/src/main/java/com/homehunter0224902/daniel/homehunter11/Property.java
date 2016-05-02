@@ -10,8 +10,8 @@ public class Property {
     private Integer rent, minSalary;
     private String payPeriod;
     private Double beds, baths, sqft;
-    private Boolean pets, couples, smoking;
-    private Drawable pic;
+    private Boolean guarantor, pets, couples, smoking;
+    private Drawable pic, pic2, pic3, pic4;
     private Double myDistance;
 
     public Property(String address, Drawable pic, Integer rent, String payPeriod, Integer minSalary) {
@@ -93,6 +93,14 @@ public class Property {
         this.sqft = sqft;
     }
 
+    public Boolean getGuarantor() {
+        return guarantor;
+    }
+
+    public void setGuarantor(Boolean guarantor) {
+        this.guarantor = guarantor;
+    }
+
     public Boolean getPets() {
         return pets;
     }
@@ -115,14 +123,36 @@ public class Property {
     public void setSmoking(Boolean smoking) {
         this.smoking = smoking;
     }
+
+
+    public void setPic(Drawable pic3) {
+        this.pic = pic;
+    }
     public Drawable getPic() {
         return pic;
     }
 
-    public void setPic(Drawable pic) {
-        this.pic = pic;
+    public void setPic2(Drawable pic2) {
+        this.pic2 = pic2;
     }
 
+    public Drawable getPic2() {
+        return pic2;
+    }
+
+    public void setPic3(Drawable pic3) {
+        this.pic3 = pic3;
+    }
+    public Drawable getPic3() {
+        return pic3;
+    }
+
+    public void setPic4(Drawable pic4) {
+        this.pic4 = pic4;
+    }
+    public Drawable getPic4() {
+        return pic4;
+    }
     public Double getMyDistance() {
         return myDistance;
     }
