@@ -6,24 +6,24 @@
     android:background="#000000">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#a7a7a7"></TextView>
+
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <fragment
             class="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"/>
-
+            android:layout_width="250dp"
+            android:layout_height="250dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#a7a7a7"></TextView>
         </LinearLayout>
     <EditText
         android:layout_width="match_parent"
