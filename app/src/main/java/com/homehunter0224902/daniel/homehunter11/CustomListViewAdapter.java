@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Daniel on 4/21/2016.
@@ -50,10 +51,13 @@ public class CustomListViewAdapter extends ArrayAdapter<Property> {
             holder = (ViewHolder) convertView.getTag(); // when view is getting reused
         }
 
-
-        holder.address.setText(property.getAddress()+property.getRent().toString()+property.getPayPeriod()+property.getBeds()+"br"+property.getBaths()+"ba");
-        holder.pic.setImageDrawable(property.getPic());
-
+        try{
+            holder.address.setText(property.getAddress() + property.getRent().toString() + property.getPayPeriod() + property.getBeds() + "br" + property.getBaths() + "ba"+property.getMyDistance());
+            holder.pic.setImageDrawable(property.getPic());
+        }catch(Exception e) {
+            holder.address.setText(property.getAddress() + property.getRent().toString() + property.getPayPeriod() + property.getBeds() + "br" + property.getBaths() + "ba");
+            holder.pic.setImageDrawable(property.getPic());
+        }
         return convertView;
     }
 }

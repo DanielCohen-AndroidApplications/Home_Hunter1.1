@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use saved information"
+            android:id="@+id/preferencesBtn"
+            android:onClick="click2"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter new info"
+            android:id="@+id/restartBtn"
+            android:onClick="click3"/>
+    </LinearLayout>
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your name"/>
+        android:hint="Enter your name"
+        android:textColorHint="#a7a7a7"
+        android:textColor="#a7a7a7"/>
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your email"/>
+        android:hint="Enter your email"
+        android:textColorHint="#a7a7a7"
+        android:textColor="#a7a7a7"/>
     <EditText
         android:id="@+id/editTextSalary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your (approximate salary)"/>
+        android:hint="Enter your (approximate salary)"
+        android:textColorHint="#a7a7a7"
+        android:textColor="#a7a7a7"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -32,7 +59,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
         android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="#a7a7a7"/>
     <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_height="fill_parent"

@@ -2,6 +2,7 @@ package com.homehunter0224902.daniel.homehunter11;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Geocoder;
@@ -9,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
@@ -72,9 +74,13 @@ public class SearchActivity extends FragmentActivity implements
         setContentView(R.layout.activity_search);
         textView2=(TextView) findViewById(R.id.textView2);
         try{
-            name=getIntent().getStringExtra("name");
-            email=getIntent().getStringExtra("email");
-            salaryString=getIntent().getStringExtra("salary");
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            name = preferences.getString("Name", "");
+            email=preferences.getString("Email", "");
+            salaryString=preferences.getString("Salary","");
+//            name=getIntent().getStringExtra("name");
+//            email=getIntent().getStringExtra("email");
+//            salaryString=getIntent().getStringExtra("salary");
 //            textView2.setText(name+"\n"+email+"\n"+salaryString);
 
             fm = (SupportMapFragment)  getSupportFragmentManager().findFragmentById(R.id.map);
@@ -107,7 +113,8 @@ public class SearchActivity extends FragmentActivity implements
             adapter.notifyDataSetChanged();
             onMapReady(map);
         }catch (Exception e){
-            textView2.setText(e.getMessage());
+//            textView2.setText(e.getMessage());
+            Log.d("_dan click", e.getMessage());
         }
 
     }

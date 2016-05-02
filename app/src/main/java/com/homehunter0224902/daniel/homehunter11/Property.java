@@ -12,6 +12,7 @@ public class Property {
     private Double beds, baths, sqft;
     private Boolean pets, couples, smoking;
     private Drawable pic;
+    private Double myDistance;
 
     public Property(String address, Drawable pic, Integer rent, String payPeriod, Integer minSalary) {
         this.address = address;
@@ -120,5 +121,12 @@ public class Property {
 
     public void setPic(Drawable pic) {
         this.pic = pic;
+    }
+
+    public Double getMyDistance() {
+        return myDistance;
+    }
+    public void setMyDistance(Double myDistance) {
+        this.myDistance = myDistance;
     }
 }

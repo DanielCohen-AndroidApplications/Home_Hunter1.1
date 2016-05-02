@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#a7a7a7"></TextView>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <fragment
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+
+        </LinearLayout>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
+        android:hint="Enter new location here"
+        android:textColor="#a7a7a7"
+        android:textColorHint="#a7a7a7"
         />
 
     <LinearLayout
@@ -26,35 +50,14 @@
             android:id="@+id/gpsBtn" />
     </LinearLayout>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <fragment
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"/>
-
-        </LinearLayout>
-
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/listView">
+            android:id="@+id/listView"
+            >
 
         </ListView>
 
-
-
-
 </LinearLayout>
+
+
