@@ -129,21 +129,28 @@ public class RegistrationActivity extends Activity {
     }
 
     public void click3(View v){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        Intent i = getIntent();
-        name = editTextName.getText().toString();
-        editor.putString("Name", "");
-        editor.apply();
+        preferencesBtn.setVisibility(View.INVISIBLE);
+        restartBtn.setVisibility(View.INVISIBLE);
 
-        email = editTextEmail.getText().toString();
-        editor.putString("Email", "");
-        editor.apply();
-
-        salary = editTextSalary.getText().toString();
-        editor.putString("Salary", "");
-        editor.apply();
-
-        startActivity(i);
+        editTextEmail.setVisibility(View.VISIBLE);
+        editTextName.setVisibility(View.VISIBLE);
+        editTextSalary.setVisibility(View.VISIBLE);
+        submit.setVisibility(View.VISIBLE);
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        Intent i = getIntent();
+//
+//        editor.putString("Name", "");
+//        editor.apply();
+//
+//
+//        editor.putString("Email", "");
+//        editor.apply();
+//
+//
+//        editor.putString("Salary", "");
+//        editor.apply();
+//
+//        startActivity(i);
     }
 }
