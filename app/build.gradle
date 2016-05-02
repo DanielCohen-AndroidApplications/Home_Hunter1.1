@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.homehunter0224902.daniel.homehunter11"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 21
     }
     buildTypes {

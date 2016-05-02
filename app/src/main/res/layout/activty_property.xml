@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <GridLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:rowCount="4"
+        android:columnCount="1"
+        >
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton" />
+    <ImageButton
+
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -28,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageButton4" />
-    </RelativeLayout>
+    </GridLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +56,12 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/longTextView" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Square Footage: "
+        android:id="@+id/sqftTextView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,22 +80,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView6" />
+        android:text="Couples Allowed?: "
+        android:id="@+id/couplesTextView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView7" />
+        android:text="Smoking Allowed?: "
+        android:id="@+id/smokingTextView" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView8" />
+
 
     <Button
         android:layout_width="wrap_content"
@@ -92,3 +98,4 @@
         android:text="Interested? Schedule a showing!"
         android:id="@+id/scheduleShowingBtn" />
 </LinearLayout>
+</ScrollView>
