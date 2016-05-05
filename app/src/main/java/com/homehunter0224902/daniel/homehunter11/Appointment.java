@@ -30,9 +30,7 @@ public class Appointment {
 
     public Time getTime(){return time;}
     public void setTime(Time time){this.time=time;}
-    public String toString(Time time){
-        return time.format("%d.%m.%Y %H:%M)");
-    }
+
 
     public void setPic(Drawable pic) {
         this.pic = pic;

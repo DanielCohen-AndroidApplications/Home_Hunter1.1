@@ -53,7 +53,7 @@ public class CustomListViewAdapter2 extends ArrayAdapter<Appointment> {
         }
 
         try{
-            holder.info.setText("Meet with "+appointment.getContact()+" at "+appointment.getTime().toString());
+            holder.info.setText("Meet with "+appointment.getContact()+" at "+appointment.getTime().format("%d.%m.%Y %H:%M)"));
             holder.pic.setImageDrawable(appointment.getPic());
         }catch(Exception e) {
             Log.d("_dan", e.getMessage());
