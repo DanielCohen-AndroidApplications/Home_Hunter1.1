@@ -35,6 +35,9 @@
         <activity
             android:name=".PropertyActivity">
         </activity>
+        <activity
+            android:name=".AppointmentActivity">
+        </activity>
     </application>
 
 </manifest>

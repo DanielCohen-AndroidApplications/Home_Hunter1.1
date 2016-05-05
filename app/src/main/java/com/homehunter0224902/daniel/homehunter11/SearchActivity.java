@@ -292,7 +292,7 @@ public class SearchActivity extends FragmentActivity implements
             map.addMarker(new MarkerOptions().position(pos).title(getCompleteAddressString(latitude,longitude)).snippet(myDistance+"km from me").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             if(cardinalnumProperties==0){
                 map.moveCamera(CameraUpdateFactory.newLatLng(pos));
-                map.getMaxZoomLevel();
+                map.getMinZoomLevel();
             }
         }
         @Override

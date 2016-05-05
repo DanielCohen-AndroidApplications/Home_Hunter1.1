@@ -1,9 +1,12 @@
 package com.homehunter0224902.daniel.homehunter11;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ public class PropertyActivity extends Activity {
     Property selection;
     ImageButton imageButton, imageButton2, imageButton3, imageButton4;
     TextView addressTextView, descriptionTextView, longTextView, guarantorTextView, couplesTextView, petsTextView, smokingTextView,sqftTextView;
+    Button scheduleShowingBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,7 @@ public class PropertyActivity extends Activity {
             imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
             imageButton3 = (ImageButton) findViewById(R.id.imageButton3);
             imageButton4 = (ImageButton) findViewById(R.id.imageButton4);
+            scheduleShowingBtn=(Button) findViewById(R.id.scheduleShowingBtn);
 
             addressTextView = (TextView) findViewById(R.id.addressTextView);
             descriptionTextView = (TextView) findViewById(R.id.descriptionTextView);
@@ -42,6 +47,9 @@ public class PropertyActivity extends Activity {
             prop1.setBeds(2.0);
             prop1.setBaths(2.0);
             prop1.setGuarantor(true);
+            prop1.setCouples(true);
+            prop1.setSmoking(false);
+            prop1.setPets(true);
             prop1.setSqft(1115.4);
             prop1.setShortBlurb("Downtown Luxury Condominium");
             prop1.setBigBlurb("Deluxe corner apartment in beautiful pre-war building");
@@ -63,7 +71,7 @@ public class PropertyActivity extends Activity {
             imageButton2.setImageDrawable(selection.getPic2());
             imageButton3.setImageDrawable(selection.getPic3());
             imageButton4.setImageDrawable(selection.getPic4());
-
+            addressTextView.setText(selection.getAddress());
             descriptionTextView.setText(selection.getBeds() + " Br, " + selection.getBaths() + " Ba, " + selection.getShortBlurb() + " " + selection.getRent() + "/" + selection.getPayPeriod());
             longTextView.setText(selection.getBigBlurb());
             sqftTextView.setText(selection.getSqft() + "");
@@ -94,4 +102,11 @@ public class PropertyActivity extends Activity {
             Log.d(e.getMessage(),"_dan Exception");
         }
     }
+
+    public void scheduleShowing(View v){
+        Intent i = new Intent(PropertyActivity.this, AppointmentActivity.class);
+        i.putExtra("address", selection.getAddress());
+        startActivity(i);
+    }
+
 }
